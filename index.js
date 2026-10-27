@@ -23,6 +23,12 @@ app.use((req, res, next) => {
 
     res.on('finish', () => {
         const duration = DataTransfer.now() - start
+        console.log({
+            method: req.method,
+            url: req.originalUrl,
+            statusCode: req.statusCode,
+            duration: `${duration} ms`
+        })
 
     })
 })
