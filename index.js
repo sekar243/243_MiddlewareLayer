@@ -65,5 +65,16 @@ function validateBody(schema){
         const { error, value } = schema.validate(req.body,{
             abortEarly:false, convert: true, allowUnknown: false
         });
+        if(error){
+            return errorResponse(
+                res,
+                'Validasi input gagal',
+                400,
+                error.details.map(item =>({
+                    field: item.path.join('.'),
+                    message: item.message,
+                }))
+            )
+        }
     }
 }
