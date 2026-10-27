@@ -1,5 +1,5 @@
 import "dotenv/config";
-import express from 'espress';
+import express from 'express';
 import pg from "pg";
 import Joi from "joi";
 
@@ -148,4 +148,9 @@ app.delete('/bidata/:id', validateParams(idSchema), async(req, res) => {
             return errorResponse(res, 'Data tidak ditemukan', 404)
         }
         return successResponse(res, 'Data berhasil dihapus', result.rows[0])
+})
+
+// if route tidak ditemukan
+app.use((req, res) => {
+    return errorResponse(res, 'Endpoint tidak ditemukan', 404)
 })
